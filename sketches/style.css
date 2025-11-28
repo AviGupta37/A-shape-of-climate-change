@@ -1,0 +1,168 @@
+/* Global layout */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1a2a3a 0, #05060a 55%, #020308 100%);
+  color: #f7f7ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header text */
+.app-header {
+  text-align: center;
+  padding: 24px 16px 8px;
+}
+
+.title {
+  margin: 0;
+  font-size: 2.2rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+/* Center the canvas and give it a "card" look */
+canvas {
+  display: block;
+  margin: 24px auto 8px;
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Put all p5-created elements in a vertical column under the canvas */
+main,
+.app-main {
+  width: 100%;
+  max-width: 960px;
+  padding: 0 16px 40px;
+}
+
+/* p5 elements (the createP labels) */
+p {
+  margin: 8px 0 4px;
+  font-size: 0.9rem;
+  color: rgba(245, 247, 255, 0.8);
+}
+
+/* Group small controls nicely */
+body > p,
+body > input,
+body > button,
+body > div,
+body > select {
+  /* this keeps things roughly centered and not stretching full width */
+  max-width: 960px;
+}
+
+/* Slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  max-width: 320px;
+  margin: 4px 0 16px;
+  background: transparent;
+}
+
+/* Track */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4fd1c5, #f6e05e, #f56565);
+}
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4fd1c5, #f6e05e, #f56565);
+}
+
+/* Thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #171923;
+  margin-top: -5px;
+  box-shadow: 0 0 0 3px rgba(79, 209, 197, 0.45);
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #171923;
+  box-shadow: 0 0 0 3px rgba(79, 209, 197, 0.45);
+  cursor: pointer;
+}
+
+/* Text input (year box) */
+input[type="text"],
+input:not([type]) {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 15, 25, 0.8);
+  color: #f7fafc;
+  margin: 4px 8px 12px 0;
+  outline: none;
+  min-width: 120px;
+}
+
+input[type="text"]:focus,
+input:not([type]):focus {
+  border-color: #4fd1c5;
+  box-shadow: 0 0 0 1px rgba(79, 209, 197, 0.7);
+}
+
+/* Buttons (play/pause, go to year) */
+button {
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: none;
+  margin: 4px 6px 12px 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4fd1c5, #63b3ed);
+  color: #050816;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.45);
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    filter 0.12s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.6);
+  filter: brightness(1.05);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+/* Small “system” feel for text below */
+footer {
+  margin-top: auto;
+  padding: 8px 0 16px;
+  font-size: 0.7rem;
+  opacity: 0.5;
+}

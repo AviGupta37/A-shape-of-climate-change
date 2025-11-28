@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Shape of Climate Change</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
-  <script src="sketch.js"></script>
-</head>
-<body>
-</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>The Shape of Climate Change</title>
 
+    <!-- Google font (optional, just looks nicer) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Your CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1 class="title">The Shape of Climate Change</h1>
+      <p class="subtitle">Interactive CO₂ timeline & visual metaphor</p>
+    </header>
+
+    <!-- p5.js will inject the canvas + controls into the body -->
+    <main class="app-main">
+      <!-- nothing needed here, p5 will add elements -->
+    </main>
+
+    <!-- p5 libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.dom.min.js"></script>
+
+    <!-- your sketch -->
+    <script src="sketch.js"></script>
+  </body>
+</html>
