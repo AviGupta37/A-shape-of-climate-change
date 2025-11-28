@@ -1,0 +1,148 @@
+// sketch_temperature.js
+// Uses: data/Global Temperature.csv
+// Headers: year, Month, Monthly Anomaly, temp.normalize
+
+let tempTable;
+let tempRows;
+
+let tempCenterX, tempCenterY;
+let tempIndex = 0;
+
+let tempPlaying = true;
+let tempSpeedSlider;
+let tempPlayPauseButton;
+let tempSlider;
+
+function preload() {
+  tempTable = loadTable('data/temp_dataset.csv', 'csv', 'header');
+}
+
+function setup() {
+  createCanvas(700, 700);
+  colorMode(HSB, 360, 100, 100, 100);
+  noStroke();
+  frameRate(60);
+
+  tempRows = tempTable.getRowCount();
+  tempCenterX = width / 2;
+  tempCenterY = height / 2;
+
+  textSize(18);
+  textAlign(CENTER, CENTER);
+
+  // ---- UI controls ----
+  createP("Temperature – Animation speed (steps per frame):");
+  tempSpeedSlider = createSlider(1, 10, 3, 1);
+  tempSpeedSlider.style('width', '200px');
+
+  tempPlayPauseButton = createButton('Pause');
+  tempPlayPauseButton.mousePressed(tempTogglePlayPause);
+
+  createP("Temperature – Scrub through time (year + month):");
+  tempSlider = createSlider(0, tempRows - 1, 0, 1);
+  tempSlider.style('width', '400px');
+  tempSlider.input(() => {
+    let idx = int(tempSlider.value());
+    tempRenderUpTo(idx + 1);
+    tempPlaying = false;
+    tempPlayPauseButton.html('Play');
+  });
+
+  background(0);
+  tempRenderUpTo(1);
+}
+
+function draw() {
+  // --- Temperature animation ---
+  if (tempPlaying && tempIndex < tempRows - 1) {
+    let steps = int(tempSpeedSlider.value());
+    for (let k = 0; k < steps && tempIndex < tempRows - 1; k++) {
+      tempIndex++;
+      tempDrawCircle(tempIndex);
+    }
+    tempSlider.value(tempIndex);
+  }
+
+  // Top overlay
+  let idx = constrain(tempIndex, 0, tempRows - 1);
+  let yr = tempTable.getString(idx, 'year');
+  let month = tempTable.getString(idx, 'Month');
+  let anomaly = tempTable.getNum(idx, 'Monthly Anomaly');
+
+  noStroke();
+  fill(0);
+  rect(0, 0, width, 80);
+
+  fill(255);
+  text(
+    `Year: ${yr}   Month: ${month}   Temp Anomaly: ${anomaly.toFixed(3)} °C`,
+    width / 2,
+    40
+  );
+
+  // Bottom legend + message
+  fill(0);
+  rect(0, height - 80, width, 80);
+
+  fill(255);
+  text(
+    "Blue: Cooler than average  |  Red: Hotter than average",
+    width / 2,
+    height - 50
+  );
+
+  let msg = "";
+  if (anomaly < -0.2) msg = "Unusually cool month";
+  else if (anomaly < 0.2) msg = "Near average month";
+  else if (anomaly < 0.6) msg = "Warmer than average";
+  else msg = "Much hotter than average";
+
+  text(msg, width / 2, height - 25);
+
+  if (!tempPlaying) {
+    fill(0, 150);
+    rect(width - 140, 10, 130, 30);
+    fill(255);
+    textSize(16);
+    text("PAUSED", width - 75, 25);
+    textSize(18);
+  }
+}
+
+// ---- Temperature helpers ----
+
+function tempDrawCircle(i) {
+  let tNorm = tempTable.getNum(i, 'temp.normalize');
+  if (isNaN(tNorm)) tNorm = 0;              // safety if any missing data
+
+  let radius = map(tNorm, 0, 1, 50, 320);
+  let hue = map(tNorm, 0, 1, 210, 0);       // blue → red
+
+  fill(hue, 70, 100, 40);
+  ellipse(tempCenterX, tempCenterY, radius * 2, radius * 2);
+}
+
+function tempRenderUpTo(target) {
+  background(0);
+  let maxIndex = constrain(target, 0, tempRows);
+  for (let i = 0; i < maxIndex; i++) {
+    tempDrawCircle(i);
+  }
+  tempIndex = maxIndex - 1;
+  if (tempSlider) tempSlider.value(tempIndex);
+}
+
+function tempTogglePlayPause() {
+  tempPlaying = !tempPlaying;
+  tempPlayPauseButton.html(tempPlaying ? 'Pause' : 'Play');
+}
+
+function keyPressed() {
+  if (key === ' ') {
+    tempTogglePlayPause();
+  } else if (key === 'r' || key === 'R') {
+    tempRenderUpTo(1);
+    tempPlaying = true;
+    tempPlayPauseButton.html('Pause');
+  }
+}
