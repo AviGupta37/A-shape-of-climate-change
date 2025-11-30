@@ -81,19 +81,3 @@ This is core to **science communication** — turning abstract numbers into intu
 
 ---
 
-## 8. Sample Visual References  
-(Replace these with your actual images inside `assets/moodboard/`)  
-- `concept_reference.jpg`  
-- `color_palettes/palette.png`  
-- `backgrounds/dark_gradient.png`  
-- `thumbnails/thumb_animated.gif`  
-
----
-
-## 9. How it connects to your project  
-- The moodboard sets a consistent style for **your CO₂ visual**, making it feel intentional and professional.  
-- Teachers/evaluators will immediately see your **design thinking** behind the visualization.  
-- It strengthens the communication aspect by showing why colors, shapes, and interactions were chosen.
-
----
-
